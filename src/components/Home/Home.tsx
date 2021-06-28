@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, RouteComponentProps } from "@reach/router";
-import { fetchUserRequest } from '../../store/usersList/actions';
+import { Link, navigate, RouteComponentProps } from "@reach/router";
+import { fetchUsersListRequest } from '../../store/usersList/actions';
 import { getErrorSelector, getPendingSelector, getUsersSelector } from '../../store/usersList/selectors';
 import { IUser } from '../../store/usersList/types';
 import './Home.css';
@@ -13,7 +13,7 @@ const Home = (props: RouteComponentProps) => {
   const error = useSelector(getErrorSelector);
 
   useEffect(() => {
-    dispatch(fetchUserRequest());
+    dispatch(fetchUsersListRequest());
   }, [])
   
   return (
@@ -25,6 +25,7 @@ const Home = (props: RouteComponentProps) => {
       ): (
         <div className='users-list-container'>
           <h1>Users List</h1>
+          <button onClick={() => navigate('/create-user')}>Create User</button>
           {users && users.length > 0 && users.map((user: IUser, index: number) => 
             (
               <Link key={`user-${index}`} to={`user/${user.id}`}>

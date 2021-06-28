@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import { Router } from '@reach/router';
 import Home from './components/Home/Home';
 import User from './components/User/User';
+import CreateUser from './components/CreateUser/CreateUser';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,6 +16,7 @@ ReactDOM.render(
     <Router>
         <Home path="/" />
         <User path="user/:id" />
+        <CreateUser path="create-user" />
     </Router>
     </Provider>
   </React.StrictMode>,

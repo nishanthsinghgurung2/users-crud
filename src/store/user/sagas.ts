@@ -4,15 +4,14 @@ import { IUser } from "../usersList/types";
 
 import { createUserFailure, createUserSuccess } from "./actions";
 import { CREATE_USER_REQUEST } from "./actionTypes";
-import { CreateUserRequest, CreateUserSuccessPayload } from "./types";
+import { CreateUserRequest } from "./types";
 
 const createUser = (action: CreateUserRequest): any =>
     axios.post<IUser>("https://reqres.in/api/users", action.payload);
 
 function* createUserSaga(action: CreateUserRequest) {
     try {
-        const response: CreateUserSuccessPayload = yield call(createUser(action));
-        
+        const response: IUser = yield call(createUser, action);
         yield put(
             createUserSuccess(response)
         );

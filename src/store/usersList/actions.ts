@@ -5,23 +5,23 @@ import {
 } from "./actionTypes";
 
 import { 
-    FetchUserRequest,
-    FetchUserSuccess,
-    FetchUserFailure,
-    FetchUserSuccessPayload,
-    FetchUserFailurePayload
+    FetchUsersListRequest,
+    FetchUsersListSuccess,
+    FetchUsersListFailure,
+    FetchUsersListSuccessPayload,
+    FetchUsersListFailurePayload
 } from "./types";
 
-export const fetchUserRequest = (): FetchUserRequest => ({
+export const fetchUsersListRequest = (): FetchUsersListRequest => ({
     type: FETCH_USERS_LIST_REQUEST
 });
 
-export const fetchUserSuccess = ( payload: FetchUserSuccessPayload ): FetchUserSuccess => ({
+export const fetchUsersListSuccess = ( payload: FetchUsersListSuccessPayload ): FetchUsersListSuccess => ({
     type: FETCH_USERS_LIST_SUCCESS,
     payload
 });
 
-export const fetchUserFailure = (payload: FetchUserFailurePayload): FetchUserFailure => ({
+export const fetchUsersListFailure = (payload: FetchUsersListFailurePayload): FetchUsersListFailure => ({
     type: FETCH_USERS_LIST_FAILURE,
     payload
 });

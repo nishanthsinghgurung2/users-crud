@@ -1,23 +1,23 @@
 import axios from "axios";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
-import { fetchUserFailure, fetchUserSuccess } from "./actions";
+import { fetchUsersListFailure, fetchUsersListSuccess } from "./actions";
 import { FETCH_USERS_LIST_REQUEST } from "./actionTypes";
 import { IUser, IUserList } from "./types";
 
 const getUser = () =>
     axios.get<IUser[]>("https://reqres.in/api/users");
 
-function* fetchUserSaga() {
+function* fetchUsersListSaga() {
     try {
         const response: IUserList = yield call(getUser);
         
         yield put(
-            fetchUserSuccess({ users: response.data.data })
+            fetchUsersListSuccess({ users: response.data.data })
         );
     } catch (e) {
         yield put(
-            fetchUserFailure({
+            fetchUsersListFailure({
                 error: e.message
             })
         );
@@ -25,7 +25,7 @@ function* fetchUserSaga() {
 }
 
 function* usersListSaga(){
-    yield all([takeLatest(FETCH_USERS_LIST_REQUEST, fetchUserSaga)]);
+    yield all([takeLatest(FETCH_USERS_LIST_REQUEST, fetchUsersListSaga)]);
 }
 
 export default usersListSaga;

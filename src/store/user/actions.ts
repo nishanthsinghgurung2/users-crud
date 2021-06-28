@@ -1,3 +1,4 @@
+import { IUser } from "../usersList/types";
 import { 
     CREATE_USER_REQUEST,
     CREATE_USER_SUCCESS,
@@ -14,7 +15,6 @@ import {
     CreateUserRequest,
     CreateUserSuccess,
     CreateUserFailure,
-    CreateUserSuccessPayload,
     CreateUserFailurePayload,
     UpdateUserRequest,
     UpdateUserSuccess,
@@ -25,17 +25,16 @@ import {
     DeleteUserSuccess,
     DeleteUserFailure,
     DeleteUserSuccessPayload,
-    DeleteUserFailurePayload,
-    CreateUserPayload,
+    DeleteUserFailurePayload
     
 } from "./types";
 
-export const createUserRequest = (payload: CreateUserPayload): CreateUserRequest => ({
+export const createUserRequest = (payload: IUser): CreateUserRequest => ({
     type: CREATE_USER_REQUEST,
     payload
 });
 
-export const createUserSuccess = ( payload: CreateUserSuccessPayload ): CreateUserSuccess => ({
+export const createUserSuccess = ( payload: IUser ): CreateUserSuccess => ({
     type: CREATE_USER_SUCCESS,
     payload
 });

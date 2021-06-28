@@ -1,4 +1,4 @@
-import { FetchUserFailurePayload, IUser } from '../usersList/types';
+import { FetchUsersListFailurePayload, IUser } from '../usersList/types';
 import { 
     CREATE_USER_REQUEST,
     CREATE_USER_SUCCESS,
@@ -17,24 +17,18 @@ export interface UserState {
     error: string | null;
 }
 
-export type CreateUserPayload = IUser;
-
-export type CreateUserSuccessPayload = IUser & {
-    createdAt: Date;
-}
-
-export type CreateUserFailurePayload = FetchUserFailurePayload;
+export type CreateUserFailurePayload = FetchUsersListFailurePayload;
 
 export interface CreateUserRequest {
     type: typeof CREATE_USER_REQUEST;
-    payload: CreateUserPayload;
+    payload: IUser;
 }
 
 export type UpdateUserSuccessPayload = IUser & {
     updatedAt: Date;
 }
 
-export type UpdateUserFailurePayload = FetchUserFailurePayload;
+export type UpdateUserFailurePayload = FetchUsersListFailurePayload;
 
 export interface UpdateUserRequest {
     type: typeof UPDATE_USER_REQUEST;
@@ -44,7 +38,7 @@ export interface DeleteUserSuccessPayload {
     userDeleted: boolean;
 }
 
-export type DeleteUserFailurePayload = FetchUserFailurePayload;
+export type DeleteUserFailurePayload = FetchUsersListFailurePayload;
 
 export interface DeleteUserRequest {
     type: typeof DELETE_USER_REQUEST;
@@ -52,7 +46,7 @@ export interface DeleteUserRequest {
 
 export type CreateUserSuccess = {
     type: typeof CREATE_USER_SUCCESS;
-    payload: CreateUserSuccessPayload;
+    payload: IUser;
 };
 
 export type CreateUserFailure = {

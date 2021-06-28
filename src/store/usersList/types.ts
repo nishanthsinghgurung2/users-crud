@@ -1,7 +1,7 @@
 import { FETCH_USERS_LIST_REQUEST, FETCH_USERS_LIST_SUCCESS, FETCH_USERS_LIST_FAILURE } from './actionTypes';
 
 export interface IUser {
-    id: number;
+    id?: number;
     email: string;
     first_name: string;
     last_name: string;
@@ -30,30 +30,30 @@ export interface UsersListState {
     error: string | null;
 }
 
-export interface FetchUserSuccessPayload {
+export interface FetchUsersListSuccessPayload {
     users: IUser[];
 }
 
-export interface FetchUserFailurePayload {
+export interface FetchUsersListFailurePayload {
     error: string;
 }
 
-export interface FetchUserRequest {
+export interface FetchUsersListRequest {
     type: typeof FETCH_USERS_LIST_REQUEST;
 }
 
-export type FetchUserSuccess = {
+export type FetchUsersListSuccess = {
     type: typeof FETCH_USERS_LIST_SUCCESS;
-    payload: FetchUserSuccessPayload;
+    payload: FetchUsersListSuccessPayload;
 };
 
-export type FetchUserFailure = {
+export type FetchUsersListFailure = {
     type: typeof FETCH_USERS_LIST_FAILURE;
-    payload: FetchUserFailurePayload;
+    payload: FetchUsersListFailurePayload;
 };
 
 
 export type UsersListActions =
-    | FetchUserRequest
-    | FetchUserSuccess
-    | FetchUserFailure;
+    | FetchUsersListRequest
+    | FetchUsersListSuccess
+    | FetchUsersListFailure;
