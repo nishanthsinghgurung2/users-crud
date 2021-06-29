@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Formik,
     Form,
@@ -38,6 +38,7 @@ const EditUser: React.FC<RouteComponentProps> = () => {
     const userInfo: IUser = useSelector(getUserInfoSelector);
     const selectedUserInfo: IUser = useSelector(selectedUserInfoSelector);
     const error = useSelector(getErrorSelector);
+    const [updateUserClicked, setUpdateUserClicked] = useState(false);
 
     const { first_name, last_name, email, avatar} = selectedUserInfo;
     const initialValues: MyFormValues = { 
@@ -54,6 +55,7 @@ const EditUser: React.FC<RouteComponentProps> = () => {
             email: values.email,
             avatar: values.avatar
         } as IUser));
+        setUpdateUserClicked(true);
     };
     
     return (
@@ -65,7 +67,7 @@ const EditUser: React.FC<RouteComponentProps> = () => {
                 onSubmit={handleEditUser}
                 validationSchema={EditUserSchema}
             >
-                {({ errors, touched }) => (
+                {({ errors, touched, isValid }) => (
                     <Form className="edit-user-form">
                         <div className="edit-user-form-item">
                             <label htmlFor="firstName" className="edit-user-form-label">First Name</label>
@@ -92,7 +94,7 @@ const EditUser: React.FC<RouteComponentProps> = () => {
                             <label htmlFor="avatar" className="edit-user-form-label">Avatar</label>
                             <Field id="avatar" name="avatar" placeholder="Avatar" />
                         </div>
-                        <button type="submit" className="edit-user-form-submit">Edit User</button>
+                        <button type="submit" disabled={!isValid}  className="edit-user-form-submit">Edit User</button>
                     </Form>
                 )}
             </Formik>
@@ -100,7 +102,7 @@ const EditUser: React.FC<RouteComponentProps> = () => {
                 <div>Loading...</div>
             ): error? (
                 <div className="api-failure padding-top-20">Error</div>
-            ): (userInfo !== initialUserState.userInfo)? (
+            ): (updateUserClicked && userInfo && userInfo !== initialUserState.userInfo)? (
                 <div className="api-success padding-top-20">User successfully edited</div>
             ): null}
         </div>

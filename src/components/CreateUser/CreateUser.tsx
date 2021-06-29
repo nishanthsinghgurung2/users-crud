@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Formik,
     Form,
@@ -36,6 +36,7 @@ const CreateUser: React.FC<RouteComponentProps> = () => {
     const pending = useSelector(getPendingSelector);
     const userInfo = useSelector(getUserInfoSelector);
     const error = useSelector(getErrorSelector);
+    const [createUserClicked, setCreateUserClicked] = useState(false);
 
     const initialValues: MyFormValues = { firstName: '', lastName: '', email: '', avatar: ''};
 
@@ -46,6 +47,7 @@ const CreateUser: React.FC<RouteComponentProps> = () => {
             email: values.email,
             avatar: values.avatar
         } as IUser));
+        setCreateUserClicked(true);
     };
     
     return (
@@ -57,7 +59,7 @@ const CreateUser: React.FC<RouteComponentProps> = () => {
                 onSubmit={handleCreateUser}
                 validationSchema={CreateUserSchema}
             >
-                {({ errors, touched }) => (
+                {({ errors, touched, isValid }) => (
                     <Form className="create-user-form">
                         <div className="create-user-form-item">
                             <label htmlFor="firstName" className="create-user-form-label">First Name</label>
@@ -84,7 +86,7 @@ const CreateUser: React.FC<RouteComponentProps> = () => {
                             <label htmlFor="avatar" className="create-user-form-label">Avatar</label>
                             <Field id="avatar" name="avatar" placeholder="Avatar" />
                         </div>
-                        <button type="submit" className="create-user-form-submit">Create User</button>
+                        <button type="submit" disabled={!isValid} className="create-user-form-submit">Create User</button>
                     </Form>
                 )}
             </Formik>
@@ -92,7 +94,7 @@ const CreateUser: React.FC<RouteComponentProps> = () => {
                 <div>Loading...</div>
             ): error? (
                 <div className="api-failure padding-top-20">Error</div>
-            ): (userInfo !== initialUserState.userInfo)? (
+            ): (createUserClicked && userInfo !== initialUserState.userInfo)? (
                 <div className="api-success padding-top-20">User successfully created</div>
             ): null}
         </div>

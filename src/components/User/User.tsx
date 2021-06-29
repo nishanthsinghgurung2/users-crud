@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { RouteComponentProps, navigate } from "@reach/router";
+import React, { useEffect, useState } from 'react';
+import { RouteComponentProps, navigate, Link } from "@reach/router";
 import { useDispatch, useSelector } from 'react-redux';
 import { getErrorSelector, getPendingSelector, getUserInfoSelector } from '../../store/fetchUser/selectors';
 import { getDeletedUserStatusSelector, getDeletedUserPendingSelector, getDeletedUserErrorSelector } from '../../store/deleteUser/selectors';
@@ -20,10 +20,11 @@ const User = (props: UserProps) => {
     const deleteUserPending = useSelector(getDeletedUserPendingSelector);
     const deleteUserStatus = useSelector(getDeletedUserStatusSelector);
     const deleteUserError = useSelector(getDeletedUserErrorSelector);
-
+    const [deleteUserClicked, setDeleteUserClicked] = useState(false);
 
     const handleDeleteUser = () => {
         dispatch(deleteUserRequest({ id: Number(props?.id)}))
+        setDeleteUserClicked(true);
     };
 
     useEffect(() => {
@@ -32,6 +33,7 @@ const User = (props: UserProps) => {
 
     return (
         <div className="fetched-user">
+            <Link className="home" to="/">Go Home</Link>
             <h1>User Details</h1>
             {pending? (
             <div>Loading...</div>
@@ -56,7 +58,7 @@ const User = (props: UserProps) => {
                     <div>Loading...</div>
                 ): deleteUserError? (
                     <div className="api-failure padding-top-20">Error</div>
-                ): (deleteUserStatus)? (
+                ): (deleteUserClicked && deleteUserStatus)? (
                     <div className="api-success padding-top-20">User successfully deleted</div>
                 ): null}
             </div>
