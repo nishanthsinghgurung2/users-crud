@@ -1,11 +1,17 @@
 import { combineReducers } from "redux";
 
 import usersListReducer from "./usersList/reducer";
-import userReducer from "./user/reducer";
+import createdUserReducer from "./createUser/reducer";
+import fetchedUserReducer from "./fetchUser/reducer";
+import editedUserReducer from "./editUser/reducer";
+import deletedUserReducer from "./deleteUser/reducer";
 
 const rootReducer = combineReducers({
     usersList: usersListReducer,
-    userInfo: userReducer
+    createdUserInfo: createdUserReducer,
+    fetchedUserInfo: fetchedUserReducer,
+    editedUserInfo: editedUserReducer,
+    deletedUserInfo: deletedUserReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

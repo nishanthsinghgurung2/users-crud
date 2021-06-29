@@ -8,10 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { IUser } from '../../store/usersList/types';
 import { Link, RouteComponentProps } from '@reach/router';
-import './CreateUser.css';
-import { getErrorSelector, getPendingSelector, getUserInfoSelector } from '../../store/createUser/selectors';
-import { initialUserState } from '../../store/createUser/reducer';
-import { createUserRequest } from '../../store/createUser/actions';
+import './EditUser.css';
+import { getErrorSelector, getPendingSelector, getUserInfoSelector } from '../../store/editUser/selectors';
+import { getUserInfoSelector as selectedUserInfoSelector } from '../../store/fetchUser/selectors';
+import { initialUserState } from '../../store/editUser/reducer';
+import { editUserRequest } from '../../store/editUser/actions';
   interface MyFormValues {
     firstName: string;
     lastName: string;
@@ -19,7 +20,7 @@ import { createUserRequest } from '../../store/createUser/actions';
     avatar: string;
   }
 
-  const CreateUserSchema = Yup.object().shape({
+  const EditUserSchema = Yup.object().shape({
     firstName: Yup.string()
       .min(2, 'Too Short!')
       .max(50, 'Too Long!')
@@ -31,16 +32,23 @@ import { createUserRequest } from '../../store/createUser/actions';
     email: Yup.string().email('Invalid email').required('Required'),
   });
 
-const CreateUser: React.FC<RouteComponentProps> = () => {
+const EditUser: React.FC<RouteComponentProps> = () => {
     const dispatch = useDispatch();
     const pending = useSelector(getPendingSelector);
-    const userInfo = useSelector(getUserInfoSelector);
+    const userInfo: IUser = useSelector(getUserInfoSelector);
+    const selectedUserInfo: IUser = useSelector(selectedUserInfoSelector);
     const error = useSelector(getErrorSelector);
 
-    const initialValues: MyFormValues = { firstName: '', lastName: '', email: '', avatar: ''};
+    const { first_name, last_name, email, avatar} = selectedUserInfo;
+    const initialValues: MyFormValues = { 
+        firstName: first_name,
+        lastName: last_name,
+        email: email,
+        avatar: avatar? avatar: ''
+    };
 
-    const handleCreateUser = (values: any, actions: any) => {
-        dispatch(createUserRequest({
+    const handleEditUser = (values: any, actions: any) => {
+        dispatch(editUserRequest({
             first_name: values.firstName,
             last_name: values.lastName,
             email: values.email,
@@ -49,42 +57,42 @@ const CreateUser: React.FC<RouteComponentProps> = () => {
     };
     
     return (
-        <div className="create-user">
+        <div className="edit-user">
             <Link className="home" to="/">Go Home</Link>
-            <h1>Create User</h1>
+            <h1>Edit User</h1>
             <Formik
                 initialValues={initialValues}
-                onSubmit={handleCreateUser}
-                validationSchema={CreateUserSchema}
+                onSubmit={handleEditUser}
+                validationSchema={EditUserSchema}
             >
                 {({ errors, touched }) => (
-                    <Form className="create-user-form">
-                        <div className="create-user-form-item">
-                            <label htmlFor="firstName" className="create-user-form-label">First Name</label>
+                    <Form className="edit-user-form">
+                        <div className="edit-user-form-item">
+                            <label htmlFor="firstName" className="edit-user-form-label">First Name</label>
                             <Field id="firstName" name="firstName" placeholder="First Name" />
                             {errors.firstName && touched.firstName ? (
                                 <div className="api-failure">{errors.firstName}</div>
                             ) : null}
                         </div>
-                        <div className="create-user-form-item">
-                            <label htmlFor="lastName" className="create-user-form-label">Last Name</label>
+                        <div className="edit-user-form-item">
+                            <label htmlFor="lastName" className="edit-user-form-label">Last Name</label>
                             <Field id="lastName" name="lastName" placeholder="Last Name" />
                             {errors.lastName && touched.lastName ? (
                                 <div className="api-failure">{errors.lastName}</div>
                             ) : null}
                         </div>
-                        <div className="create-user-form-item">
-                            <label htmlFor="email" className="create-user-form-label">Email</label>
+                        <div className="edit-user-form-item">
+                            <label htmlFor="email" className="edit-user-form-label">Email</label>
                             <Field id="email" name="email" placeholder="Email" />
                             {errors.email && touched.email ? (
                                 <div className="api-failure">{errors.email}</div>
                             ) : null}
                         </div>
-                        <div className="create-user-form-item">
-                            <label htmlFor="avatar" className="create-user-form-label">Avatar</label>
+                        <div className="edit-user-form-item">
+                            <label htmlFor="avatar" className="edit-user-form-label">Avatar</label>
                             <Field id="avatar" name="avatar" placeholder="Avatar" />
                         </div>
-                        <button type="submit" className="create-user-form-submit">Create User</button>
+                        <button type="submit" className="edit-user-form-submit">Edit User</button>
                     </Form>
                 )}
             </Formik>
@@ -93,10 +101,10 @@ const CreateUser: React.FC<RouteComponentProps> = () => {
             ): error? (
                 <div className="api-failure padding-top-20">Error</div>
             ): (userInfo !== initialUserState.userInfo)? (
-                <div className="api-success padding-top-20">User successfully created</div>
+                <div className="api-success padding-top-20">User successfully edited</div>
             ): null}
         </div>
     );
 };
 
-export default CreateUser;
+export default EditUser;

@@ -4,9 +4,9 @@ import { Link, navigate, RouteComponentProps } from "@reach/router";
 import { fetchUsersListRequest } from '../../store/usersList/actions';
 import { getErrorSelector, getPendingSelector, getUsersSelector } from '../../store/usersList/selectors';
 import { IUser } from '../../store/usersList/types';
-import './Home.css';
+import './UsersList.css';
 
-const Home = (props: RouteComponentProps) => {
+const UsersList = (props: RouteComponentProps) => {
   const dispatch = useDispatch();
   const pending = useSelector(getPendingSelector);
   const users = useSelector(getUsersSelector);
@@ -39,4 +39,4 @@ const Home = (props: RouteComponentProps) => {
   );
 }
 
-export default Home;
+export default UsersList;
