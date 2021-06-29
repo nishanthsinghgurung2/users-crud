@@ -6,17 +6,19 @@ import './index.css';
 import store from './store';
 import reportWebVitals from './reportWebVitals';
 import { Router } from '@reach/router';
-import Home from './components/Home/Home';
+import UsersList from './components/UsersList/UsersList';
 import User from './components/User/User';
 import CreateUser from './components/CreateUser/CreateUser';
+import EditUser from './components/EditUser/EditUser';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
     <Router>
-        <Home path="/" />
+        <UsersList path="/" />
         <User path="user/:id" />
         <CreateUser path="create-user" />
+        <EditUser path="edit-user" />
     </Router>
     </Provider>
   </React.StrictMode>,

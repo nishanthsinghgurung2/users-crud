@@ -5,6 +5,11 @@
     align-items: center;
     justify-content: center;
 }
+
+.fetched-user-item {
+    padding-bottom: 10px;
+}
+
 .padding-top-20 {
     padding-top: 20px;
 }
@@ -15,4 +20,11 @@
 
 .api-success {
     color: green;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .fetched-user-item {
+        padding-bottom: 5px;
+    }
 }

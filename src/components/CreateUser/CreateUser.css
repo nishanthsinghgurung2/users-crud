@@ -35,3 +35,11 @@
 .api-success {
     color: green;
 }
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .create-user-form-label {
+        width: 80px;
+        display: inline-block;
+    }
+}

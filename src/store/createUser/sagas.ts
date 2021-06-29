@@ -24,10 +24,10 @@ function* createUserSaga(action: CreateUserRequest) {
     }
 }
 
-function* userSaga(){
+function* createUserInfoSaga(){
     yield all([
         takeLatest(CREATE_USER_REQUEST, createUserSaga)
     ]);
 }
 
-export default userSaga;
+export default createUserInfoSaga;

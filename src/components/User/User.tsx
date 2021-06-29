@@ -29,7 +29,7 @@ const User = (props: UserProps) => {
     useEffect(() => {
         dispatch(fetchUserRequest({ id: Number(props?.id) }));
     }, [])
-    
+
     return (
         <div className="fetched-user">
             <h1>User Details</h1>
@@ -41,10 +41,10 @@ const User = (props: UserProps) => {
                 <div>
                     {userInfo? (
                         <div>
-                            <div>First Name: {userInfo.first_name}</div>
-                            <div>Last Name: {userInfo.last_name}</div>
-                            <div>Email: {userInfo.email}</div>
-                            {userInfo.avatar? <div>Avatar: {userInfo.avatar}</div> : null }
+                            <div className="fetched-user-item">First Name: {userInfo.first_name}</div>
+                            <div className="fetched-user-item">Last Name: {userInfo.last_name}</div>
+                            <div className="fetched-user-item">Email: {userInfo.email}</div>
+                            {userInfo.avatar? <div className="fetched-user-item">Avatar: {userInfo.avatar}</div> : null }
                         </div>
                     ): null}
                 </div>

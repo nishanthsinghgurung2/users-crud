@@ -11,7 +11,7 @@ const getUser = () =>
 function* fetchUsersListSaga() {
     try {
         const response: IUserList = yield call(getUser);
-        
+        console.log('userslist...', response);
         yield put(
             fetchUsersListSuccess({ users: response.data.data })
         );

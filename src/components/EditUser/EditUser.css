@@ -35,3 +35,15 @@
 .api-success {
     color: green;
 }
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .edit-user-form-label {
+        width: 80px;
+        display: inline-block;
+    }
+
+    .edit-user-form-item {
+        padding: 10px 0px;
+    }
+}

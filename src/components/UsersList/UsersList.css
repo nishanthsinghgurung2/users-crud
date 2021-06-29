@@ -1,6 +1,21 @@
-.users-list-container {
+.users-list, .users-list-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.create-user-btn {
+    margin-bottom: 20px;
+}
+
+.users-list-link {
+    padding-bottom: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .users-list-link {
+        padding-bottom: 5px;
+    }
 }
